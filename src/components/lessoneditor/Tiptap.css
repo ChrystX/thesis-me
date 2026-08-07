@@ -1,0 +1,68 @@
+/*
+ * tiptap.css
+ * Import this once in your app entry point: import "./components/LessonBuilder/tiptap.css"
+ * or merge into your global index.css / tailwind @layer base.
+ */
+
+/* Editor container */
+.tiptap-editor .ProseMirror {
+    min-height: 80px;
+    outline: none;
+}
+
+/* Placeholder */
+.tiptap-editor .ProseMirror p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: #9ca3af; /* tailwind gray-400 */
+    pointer-events: none;
+    height: 0;
+}
+
+/* Typography */
+.tiptap-editor .ProseMirror h1 { font-size: 1.35rem; font-weight: 600; margin: 0.75rem 0 0.25rem; }
+.tiptap-editor .ProseMirror h2 { font-size: 1.15rem; font-weight: 600; margin: 0.75rem 0 0.25rem; }
+.tiptap-editor .ProseMirror h3 { font-size: 1rem;    font-weight: 600; margin: 0.75rem 0 0.25rem; }
+
+.tiptap-editor .ProseMirror p   { margin: 0.25rem 0; }
+.tiptap-editor .ProseMirror ul  { list-style: disc;    padding-left: 1.25rem; margin: 0.4rem 0; }
+.tiptap-editor .ProseMirror ol  { list-style: decimal; padding-left: 1.25rem; margin: 0.4rem 0; }
+.tiptap-editor .ProseMirror li  { margin: 0.15rem 0; }
+
+.tiptap-editor .ProseMirror blockquote {
+    border-left: 3px solid #d1d5db; /* gray-300 */
+    padding-left: 0.75rem;
+    margin: 0.5rem 0;
+    color: #6b7280; /* gray-500 */
+    font-style: italic;
+}
+
+.tiptap-editor .ProseMirror code {
+    background: #f3f4f6;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-family: ui-monospace, monospace;
+    font-size: 0.85em;
+    color: #dc2626; /* red-600 */
+}
+
+.tiptap-editor .ProseMirror pre {
+    background: #1f2937; /* gray-800 */
+    color: #f9fafb;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0;
+    overflow-x: auto;
+}
+
+.tiptap-editor .ProseMirror pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+    font-size: 0.8rem;
+}
+
+.tiptap-editor .ProseMirror strong { font-weight: 600; }
+.tiptap-editor .ProseMirror em     { font-style: italic; }
+.tiptap-editor .ProseMirror s      { text-decoration: line-through; }
+.tiptap-editor .ProseMirror u      { text-decoration: underline; }
