@@ -1,5 +1,6 @@
 import {Navigate, Outlet} from "react-router-dom";
 import {useAuth} from "../hooks/useAuth.jsx";
+import InstructorNavbar from "../components/navbar/instructor/InstructorNavbar.jsx";
 
 const ProtectedInstructorRoute = () => {
     const { user, loading } = useAuth();
@@ -10,6 +11,7 @@ const ProtectedInstructorRoute = () => {
 
     return (
         <div className="pt-20">
+            <InstructorNavbar />
             <Outlet />
         </div>
     );
