@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useStudentEventDetail } from "../../../../hooks/events/useStudentEventDetail.js";
 
 export function StudentPopoverActions({ event }) {
-    const { event: detail, register, cancelRegistration, checkIn } = useStudentEventDetail(event.id);
+    const { event: detail, register, cancelRegistration, checkIn, actionError } = useStudentEventDetail(event.id);
     const [descExpanded, setDescExpanded] = useState(false);
 
     if (!detail) return <div className="px-4 pb-4 text-sm text-gray-400">Loading...</div>;
@@ -78,6 +78,9 @@ export function StudentPopoverActions({ event }) {
 
             {/* Pinned actions footer */}
             <div className="px-4 pt-2 pb-4 border-t border-gray-100 flex gap-2 shrink-0">
+                {actionError && (
+                   <p className="w-full text-xs text-red-500 mb-1">{actionError}</p>
+                )}
                 {isLive && detail.trackAttendance && !isAttended && (
                     <button
                         onClick={checkIn}

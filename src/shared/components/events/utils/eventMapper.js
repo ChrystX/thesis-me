@@ -15,6 +15,7 @@ export function toEventDto(formState, existingEvent = null) {
         courseIds,
         thumbnailUrl,
         previewVideoUrl,
+        isActive,
     } = formState;
 
     return {
@@ -33,6 +34,7 @@ export function toEventDto(formState, existingEvent = null) {
         color,
         thumbnailUrl: formState.thumbnailUrl || null,
         previewVideoUrl: formState.previewVideoUrl || null,
+        isActive,
     };
 }
 

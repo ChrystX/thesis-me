@@ -5,7 +5,7 @@ import {useInstructor} from "../hooks/useInstructor.js";
 import {useCourses} from "../hooks/course/useCourses.js";
 import InstructorCourseCard from "./components/InstructorCourseCard.jsx";
 import InstructorProfileForm from "./InstructorProfileForm.jsx";
-import {InstructorEventCalendar} from "../shared/components/events/calendar/InstructorEventCalendar.jsx";
+import {InstructorEventCalendar} from "./components/Calendar/InstructorEventCalendar.jsx";
 
 const InstructorDashboard = () => {
     const { user } = useContext(AuthContext);

@@ -84,6 +84,7 @@ api.interceptors.response.use(
 
             } catch (refreshError) {
                 // Reject all queued requests and log out
+                console.error("[TOKEN REFRESH FAILED]", refreshError);
                 processQueue(refreshError, null);
                 tokenStorage.clear();
                 refreshStorage.clearRefresh();
@@ -93,6 +94,15 @@ api.interceptors.response.use(
                 isRefreshing = false;
             }
         }
+
+        console.error("[API ERROR]", {
+            url: originalRequest?.url,
+            method: originalRequest?.method,
+            status: error.response?.status,
+            statusText: error.response?.statusText,
+            data: error.response?.data,
+            message: error.message,
+        });
 
         return Promise.reject(error);
     }

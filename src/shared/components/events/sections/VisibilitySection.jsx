@@ -6,7 +6,6 @@ import {useAuth} from "../../../../hooks/useAuth.jsx";
 const VISIBILITY_OPTIONS = [
     { label: "Course only", value: "course" },
     { label: "Public", value: "public" },
-    { label: "Invite only", value: "invite" },
 ];
 
 export function VisibilitySection({ visibility, courseIds, onChange, onCourseIdsChange }) {
