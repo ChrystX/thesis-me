@@ -4,7 +4,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import {useAuth} from "../../../../hooks/useAuth.jsx";
 
-export function EventCalendar({ events, onEventClick, onDateSelect }) {
+export function EventCalendar({ events, onEventClick, onDateSelect, onRangeChange }) {
     const { user } = useAuth();
     const isInstructor = ["instructor", "admin"].includes(user?.roleName);
 
@@ -34,6 +34,9 @@ export function EventCalendar({ events, onEventClick, onDateSelect }) {
             height="auto"
             eventDisplay="block"
             dayMaxEvents={3}
+            datesSet={(arg) => {
+                onRangeChange?.({ start: arg.startStr, end: arg.endStr });
+            }}
         />
     );
 }

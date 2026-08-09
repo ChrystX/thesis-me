@@ -2,7 +2,7 @@ import { useState } from "react";
 import { EVENT_COLORS } from "../constants/eventColors.js";
 import { validateEventTimes } from "../utils/eventValidation.js";
 import { toEventDto, toLocalInput } from "../utils/eventMapper.js";
-import {useEvents} from "../../../../hooks/events/useEvents.js";
+import {useEvents} from "../../../../context/EventsContext.jsx";
 
 export function useEventForm(event, onSuccess) {
     const isEditing = !!event;

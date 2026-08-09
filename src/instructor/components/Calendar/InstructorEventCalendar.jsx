@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { useEvents } from "../../../hooks/events/useEvents.js";
 import { EventCalendar } from "../../../shared/components/events/calendar/EventCalendar.jsx";
 import { EventPopover } from "../../../shared/components/events/popover/EventPopover.jsx";
 import { Modal } from "../../../shared/components/events/calendar/Modal.jsx";
 import {EventForm} from "../../../shared/components/events/EventForm.jsx";
-import {EventsProvider} from "../../../context/EventsContext.jsx";
+import {EventsProvider, useEvents} from "../../../context/EventsContext.jsx";
 
 export function InstructorEventCalendar() {
     return (
@@ -14,12 +13,12 @@ export function InstructorEventCalendar() {
     );
 
     function InstructorEventCalendarInner() {
-        const {events} = useEvents();
+        const [range, setRange] = useState(null);
+        const {events} = useEvents(range ? { startDate: range.start, endDate: range.end } : {});
         const [selectedEvent, setSelectedEvent] = useState(null);
         const [editingEvent, setEditingEvent] = useState(null);
         const [showCreateModal, setShowCreateModal] = useState(false);
         const [prefilledDates, setPrefilledDates] = useState(null);
-
 
         const handleDateSelect = (selectInfo) => {
             setPrefilledDates({startTime: selectInfo.startStr, endTime: selectInfo.endStr});
@@ -54,6 +53,7 @@ export function InstructorEventCalendar() {
                     events={events}
                     onEventClick={setSelectedEvent}
                     onDateSelect={handleDateSelect}
+                    onRangeChange={setRange}
                 />
 
                 {selectedEvent && (

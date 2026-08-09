@@ -1,5 +1,6 @@
-import {useEvents} from "../../../../hooks/events/useEvents.js";
+
 import {useInstructorEventDetail} from "../../../../hooks/events/useInstructorEventDetail.js";
+import {useEvents} from "../../../../context/EventsContext.jsx";
 
 export function InstructorPopoverActions({ event, onEdit, onClose }) {
     const { deleteEvent } = useEvents();

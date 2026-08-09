@@ -9,8 +9,8 @@ export function StudentPopoverActions({ event }) {
 
     const now = new Date();
     const toDate = (str) => new Date(/[Zz]|[+-]\d{2}:?\d{2}$/.test(str) ? str : str + "Z");
-    const isLive = toDate(event.startTime) <= now && now <= toDate(event.endTime);
-    const isPast = toDate(event.endTime) < now;
+    const isLive = toDate(detail.startTime) <= now && now <= toDate(detail.endTime);
+    const isPast = toDate(detail.endTime) < now;
 
     const { isRegistered, canRegister, description, meetingUrl, isAttended, thumbnailUrl, location } = detail;
 
