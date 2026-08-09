@@ -5,7 +5,8 @@ import { eventQueryService } from "../api/event/eventQueryService.js";
 
 const EventsContext = createContext(null);
 
-export function EventsProvider({ filter = {}, children }) {
+export function EventsProvider({ initialFilter = {}, children }) {
+    const [filter, setFilter] = useState(initialFilter);
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(false);
     const filterKey = JSON.stringify(filter);
@@ -46,7 +47,7 @@ export function EventsProvider({ filter = {}, children }) {
 
     return (
         <EventsContext.Provider value={{
-            events, loading, createEvent, updateEvent, deleteEvent, toggleEventStatus, refetch: fetchEvents
+            events, loading, filter, setFilter, createEvent, updateEvent, deleteEvent, toggleEventStatus, refetch: fetchEvents
         }}>
             {children}
         </EventsContext.Provider>

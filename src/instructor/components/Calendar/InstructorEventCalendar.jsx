@@ -13,8 +13,7 @@ export function InstructorEventCalendar() {
     );
 
     function InstructorEventCalendarInner() {
-        const [range, setRange] = useState(null);
-        const {events} = useEvents(range ? { startDate: range.start, endDate: range.end } : {});
+        const { events, setFilter } = useEvents();
         const [selectedEvent, setSelectedEvent] = useState(null);
         const [editingEvent, setEditingEvent] = useState(null);
         const [showCreateModal, setShowCreateModal] = useState(false);
@@ -53,7 +52,7 @@ export function InstructorEventCalendar() {
                     events={events}
                     onEventClick={setSelectedEvent}
                     onDateSelect={handleDateSelect}
-                    onRangeChange={setRange}
+                    onRangeChange={(range) => setFilter({ startDate: range.start, endDate: range.end })}
                 />
 
                 {selectedEvent && (
