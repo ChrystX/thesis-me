@@ -27,10 +27,11 @@ export function InstructorPopoverActions({ event, onEdit, onClose }) {
 
             <div className="flex gap-2">
                 <button
-                    onClick={() => onEdit(detail ?? event)}
-                    className="flex-1 py-2 text-sm border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50 transition-all"
+                    onClick={() => detail && onEdit(detail)}
+                    disabled={!detail}
+                    className="flex-1 py-2 text-sm border border-gray-200 rounded-lg text-gray-600 hover:bg-gray-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    Edit
+                    {detail ? "Edit" : "Loading..."}
                 </button>
                 <button
                     onClick={handleDelete}
