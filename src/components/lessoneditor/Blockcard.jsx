@@ -26,12 +26,14 @@ const BLOCK_COMPONENTS = {
     [BLOCK_TYPE.EXTERNAL_LINK]: ExternalLinkBlock,
 };
 
-const IMAGE_SOURCES = [
+const MEDIA_SOURCES = [
     { id: "url",    label: "URL / Imgur link" },
     { id: "upload", label: "Upload → Cloudinary" },
     { id: "imgur",  label: "Upload → Imgur" },
     { id: "gdrive", label: "Google Drive" },
 ];
+
+const VIDEO_MEDIA_SOURCES = MEDIA_SOURCES.filter((s) => s.id !== "imgur");
 
 export default function BlockCard({ block, totalBlocks, onUpdate, onDelete, onMoveUp, onMoveDown, isDragging = false, selected = false, onToggleSelect }) {
 
@@ -41,7 +43,7 @@ export default function BlockCard({ block, totalBlocks, onUpdate, onDelete, onMo
 
     const {
         localData, handleDataChange,
-        imageSource, setImageSource,
+        isVideo, mediaSource, setMediaSource,
         gdriveInput, setGdriveInput,
         gdriveError, setGdriveError,
         fileInputRef,
@@ -206,28 +208,28 @@ export default function BlockCard({ block, totalBlocks, onUpdate, onDelete, onMo
             </div>
 
             {/* ── Image source picker ── */}
-            {isImage && (
+            {(isImage || isVideo) && (
                 <div className="border-b border-gray-100 bg-gray-50/40 px-4 py-2">
                     <div className="flex flex-wrap gap-1">
-                        {IMAGE_SOURCES.map((src) => (
+                        {(isVideo ? VIDEO_MEDIA_SOURCES : MEDIA_SOURCES).map((src) => (
                             <button
                                 key={src.id}
-                                onClick={() => { setImageSource(src.id); setGdriveError(null); clearError(); }}
+                                onClick={() => { setMediaSource(src.id); setGdriveError(null); clearError(); }}
                                 className={`rounded-md px-2.5 py-1 text-xs font-medium transition ${
-                                    imageSource === src.id
+                                    mediaSource === src.id
                                         ? "bg-blue-100 text-blue-700"
                                         : "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                                 }`}
                             >
-                                {src.label}
+                                {src.id === "upload" && isVideo ? "Upload video → Cloudinary" : src.label}
                             </button>
                         ))}
                     </div>
 
                     <div className="mt-2">
-                        {(imageSource === "upload" || imageSource === "imgur") && (
+                        {(mediaSource === "upload" || mediaSource === "imgur") && (
                             <div>
-                                <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileSelected} className="hidden" />
+                                <input ref={fileInputRef} type="file" accept={isVideo ? "video/*" : "image/*"} onChange={handleFileSelected} className="hidden" />
                                 <button
                                     disabled={uploading}
                                     onClick={() => fileInputRef.current?.click()}
@@ -239,7 +241,7 @@ export default function BlockCard({ block, totalBlocks, onUpdate, onDelete, onMo
                             </div>
                         )}
 
-                        {imageSource === "gdrive" && (
+                        {mediaSource === "gdrive" && (
                             <div className="flex flex-col gap-1.5">
                                 <div className="flex gap-2">
                                     <input

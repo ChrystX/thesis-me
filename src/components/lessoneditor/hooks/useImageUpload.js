@@ -2,7 +2,7 @@ import { useState } from "react";
 
 // ─── Cloudinary ───────────────────────────────────────────────────────────────
 // .env: VITE_CLOUDINARY_CLOUD_NAME, VITE_CLOUDINARY_UPLOAD_PRESET
-async function cloudinaryUpload(file) {
+async function cloudinaryUpload(file, resourceType= "image") {
     const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
     const preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
     const form = new FormData();
@@ -10,10 +10,10 @@ async function cloudinaryUpload(file) {
     form.append("upload_preset", preset);
 
     const res = await fetch(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`,
         { method: "POST", body: form }
     );
-    if (!res.ok) throw new Error("Cloudinary upload failed");
+    if (!res.ok) throw new Error(`Cloudinary ${resourceType} upload failed`);
     const json = await res.json();
     // secure_url is permanent, CDN-backed, supports transformations
     return { url: json.secure_url, public_id: json.public_id };
@@ -96,7 +96,8 @@ export function useImageUpload() {
         uploading,
         error,
         clearError: () => setError(null),
-        uploadToCloudinary: (file) => run(() => cloudinaryUpload(file)),
+        uploadToCloudinary: (file) => run(() => cloudinaryUpload(file, "image")),
+        uploadVideoToCloudinary: (file) => run(() => cloudinaryUpload(file, "video")),
         uploadToImgur: (file) => run(() => imgurUpload(file)),
         resolveGDriveUrl,  // sync — no async needed
     };
