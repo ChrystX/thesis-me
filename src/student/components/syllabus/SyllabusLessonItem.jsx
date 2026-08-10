@@ -35,7 +35,7 @@ export default function SyllabusLessonItem({ lesson, isCurrent, isCompleted, isL
             </span>
 
             {/* Title */}
-            <span className={`text-xs leading-snug line-clamp-2 ${
+            <span className={`flex-1 min-w-0 text-xs leading-snug line-clamp-2 ${
                 isLocked
                     ? "text-gray-400":
                 isCurrent

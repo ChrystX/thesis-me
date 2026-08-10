@@ -6,7 +6,7 @@ import { useSyllabus } from "../../hooks/useSyllabus.js";
 import { useStudentProgress } from "../../hooks/useStudentProgress.js";
 
 import LessonContent from "../components/lesson/LessonContent.jsx";
-import LessonNavBar from "../components/lesson/LessonNavBar.jsx";
+import LessonNavBar from "../components/lesson/LessonNavbar.jsx";
 import CourseSidebar from "../components/syllabus/CourseSidebar.jsx";
 import MobileSyllabusDrawer from "../components/syllabus/MobileSyllabusDrawer.jsx";
 import {useScrollCompletion} from "../hooks/useScrollCompletion.js";
@@ -137,7 +137,7 @@ export default function LessonPage() {
 
     return (
         <div className="flex h-screen bg-gray-50 overflow-hidden" style={{ fontFamily: "'Lora', Georgia, serif" }}>
-            <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+            <div className="flex-1 flex flex-col min-w-0 mih-h-0 overflow-hidden">
 
                 {/* Header */}
                 <header className="flex-shrink-0 h-14 flex items-center justify-between px-5 bg-white border-b border-gray-100 gap-4">
@@ -163,7 +163,7 @@ export default function LessonPage() {
                 </header>
 
                 {/* Content */}
-                <main ref={contentRef} className="flex-1 overflow-y-auto">
+                <main ref={contentRef} className="flex-1 min-h-0 overflow-y-auto">
                     {lesson && (
                         lesson.lessonType === "exam"
                             ? <ExamPlayer
@@ -180,7 +180,7 @@ export default function LessonPage() {
                 </main>
 
                 {/* Nav */}
-                {lesson?.lessontype !== "exam" && (
+                {lesson?.lessonType !== "exam" && (
                 <LessonNavBar
                     prevLesson={prevLesson}
                     nextLesson={nextLesson}
