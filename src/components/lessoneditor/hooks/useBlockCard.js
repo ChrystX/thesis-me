@@ -34,7 +34,7 @@ export function useBlockCard(block, onUpdate) {
     const [gdriveError, setGdriveError] = useState(null);
     const fileInputRef = useRef(null);
 
-    const { uploading, error: uploadError, clearError, uploadToCloudinary, uploadVideoToCloudinary, uploadToImgur, resolveGDriveUrl } =
+    const { uploading, error: uploadError, clearError, uploadToCloudinary, uploadVideoToCloudinary, resolveGDriveUrl } =
         useImageUpload();
 
     // Reset image state when block changes
@@ -47,12 +47,9 @@ export function useBlockCard(block, onUpdate) {
     async function handleFileSelected(e) {
         const file = e.target.files?.[0];
         if (!file) return;
-        const result =
-            mediaSource === "imgur"
-                ? await uploadToImgur(file)
-                : isVideo
-                    ? await uploadVideoToCloudinary(file)
-                    : await uploadToCloudinary(file);
+        const result = isVideo
+            ? await uploadVideoToCloudinary(file)
+            : await uploadToCloudinary(file);
         if (result) handleDataChange({ ...localData, url: result.url, public_id: result.public_id });
         e.target.value = "";
     }

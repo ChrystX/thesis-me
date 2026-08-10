@@ -19,39 +19,21 @@ async function cloudinaryUpload(file, resourceType= "image") {
     return { url: json.secure_url, public_id: json.public_id };
 }
 
-// ─── Imgur ────────────────────────────────────────────────────────────────────
-// .env: VITE_IMGUR_CLIENT_ID  (register at https://api.imgur.com/oauth2/addclient)
-// Anonymous upload — no user account required. 1250 uploads/day on free client ID.
-async function imgurUpload(file) {
-    const clientId = import.meta.env.VITE_IMGUR_CLIENT_ID;
-    const form = new FormData();
-    form.append("image", file);
-
-    const res = await fetch("https://api.imgur.com/3/image", {
-        method: "POST",
-        headers: { Authorization: `Client-ID ${clientId}` },
-        body: form,
-    });
-    if (!res.ok) throw new Error("Imgur upload failed");
-    const json = await res.json();
-    // link is a direct .jpg/.png/.gif URL — permanent and public
-    return { url: json.data.link, public_id: json.data.id };
-}
-
 // ─── Google Drive ─────────────────────────────────────────────────────────────
-// Converts a GDrive sharing link to a direct image URL.
-// The file must be shared as "Anyone with the link can view".
-//
-// Accepted input formats:
-//   https://drive.google.com/file/d/FILE_ID/view?usp=sharing
-//   https://drive.google.com/open?id=FILE_ID
-//
-// Output:
-//   https://drive.google.com/uc?export=view&id=FILE_ID
-//   (This is the direct-render URL Google provides for publicly shared images)
-//
-// Limitation: large files show a virus-scan warning page instead of the image.
-// For production, prefer Cloudinary or Imgur. GDrive is best for quick sharing.
+// // Converts a GDrive sharing link to a direct image URL.
+// // The file must be shared as "Anyone with the link can view".
+// //
+// // Accepted input formats:
+// //   https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+// //   https://drive.google.com/open?id=FILE_ID
+// //
+// // Output:
+// //   https://drive.google.com/uc?export=view&id=FILE_ID
+// //   (This is the direct-render URL Google provides for publicly shared images)
+// //
+// // Limitation: large files show a virus-scan warning page instead of the image.
+// // For production, prefer Cloudinary or Imgur. GDrive is best for quick sharing.
+
 function resolveGDriveUrl(rawUrl) {
     try {
         const u = new URL(rawUrl.trim());
@@ -98,7 +80,6 @@ export function useImageUpload() {
         clearError: () => setError(null),
         uploadToCloudinary: (file) => run(() => cloudinaryUpload(file, "image")),
         uploadVideoToCloudinary: (file) => run(() => cloudinaryUpload(file, "video")),
-        uploadToImgur: (file) => run(() => imgurUpload(file)),
         resolveGDriveUrl,  // sync — no async needed
     };
 }

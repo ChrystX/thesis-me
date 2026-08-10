@@ -29,11 +29,8 @@ const BLOCK_COMPONENTS = {
 const MEDIA_SOURCES = [
     { id: "url",    label: "URL / Imgur link" },
     { id: "upload", label: "Upload → Cloudinary" },
-    { id: "imgur",  label: "Upload → Imgur" },
     { id: "gdrive", label: "Google Drive" },
 ];
-
-const VIDEO_MEDIA_SOURCES = MEDIA_SOURCES.filter((s) => s.id !== "imgur");
 
 export default function BlockCard({ block, totalBlocks, onUpdate, onDelete, onMoveUp, onMoveDown, isDragging = false, selected = false, onToggleSelect }) {
 
@@ -211,7 +208,7 @@ export default function BlockCard({ block, totalBlocks, onUpdate, onDelete, onMo
             {(isImage || isVideo) && (
                 <div className="border-b border-gray-100 bg-gray-50/40 px-4 py-2">
                     <div className="flex flex-wrap gap-1">
-                        {(isVideo ? VIDEO_MEDIA_SOURCES : MEDIA_SOURCES).map((src) => (
+                        {MEDIA_SOURCES.map((src) => (
                             <button
                                 key={src.id}
                                 onClick={() => { setMediaSource(src.id); setGdriveError(null); clearError(); }}
@@ -227,7 +224,7 @@ export default function BlockCard({ block, totalBlocks, onUpdate, onDelete, onMo
                     </div>
 
                     <div className="mt-2">
-                        {(mediaSource === "upload" || mediaSource === "imgur") && (
+                        {mediaSource === "upload" && (
                             <div>
                                 <input ref={fileInputRef} type="file" accept={isVideo ? "video/*" : "image/*"} onChange={handleFileSelected} className="hidden" />
                                 <button
