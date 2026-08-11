@@ -11,6 +11,9 @@ export function useQuiz(lessonId, examMode = "high_stakes") {
     const attemptIdRef = useRef(null);
     useEffect(() => { attemptIdRef.current = attemptId; }, [attemptId]);
 
+    const answersRef = useRef({});
+    useEffect(() => { answersRef.current = answers; }, [answers]);
+
     useEffect(() => {
         let cancelled = false;
         async function hydrate() {
@@ -88,10 +91,9 @@ export function useQuiz(lessonId, examMode = "high_stakes") {
 
     async function submitExam() {
         if (!attemptId) return;
-        console.log("submitting answers:", answers);
         setLoading(true);
         try {
-            const res = await quizService.submit(attemptId, answers);
+            const res = await quizService.submit(attemptId, answersRef.current);
             setResult(res.data);
             setStatus("submitted");
             return res.data;
