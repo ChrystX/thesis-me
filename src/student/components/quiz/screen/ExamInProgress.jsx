@@ -1,4 +1,4 @@
-import { Clock } from "lucide-react";
+import { Clock, ChevronLeft, ChevronRight } from "lucide-react";
 import QuestionPlayer from "../QuestionPlayer.jsx";
 import {useState} from "react";
 import QuestionNavigator from "./QuestionNavigator.jsx";
@@ -34,6 +34,13 @@ export default function ExamInProgress({ questions, answers, onAnswer, onSubmit,
                             {formatTime(secondsLeft)}
                         </span>
                     )}
+                </div>
+
+                <div className="w-full h-1.5 rounded-full bg-gray-100">
+                    <div
+                        className="h-1.5 rounded-full bg-violet-400 transition-all"
+                        style={{ width: `${questions.length ? (answeredCount / questions.length) * 100 : 0}%` }}
+                    />
                 </div>
 
                 {currentBlock && (
