@@ -137,10 +137,10 @@ export default function LessonPage() {
 
     return (
         <div className="flex h-screen bg-gray-50 overflow-hidden" style={{ fontFamily: "'Lora', Georgia, serif" }}>
-            <div className="flex-1 flex flex-col min-w-0 mih-h-0 overflow-hidden">
+            <div className="flex-1 flex flex-col min-w-0 min-h-0 overflow-hidden">
 
                 {/* Header */}
-                <header className="flex-shrink-0 h-14 flex items-center justify-between px-5 bg-white border-b border-gray-100 gap-4">
+                <header className="flex-shrink-0 min-h-14 py-2 flex items-center justify-between px-5 bg-white border-b border-gray-100 gap-4">
                     <button
                         onClick={() => navigate(`/student/dashboard`)}
                         className="flex items-center gap-1.5 text-gray-400 hover:text-gray-700 transition text-sm"
@@ -148,7 +148,7 @@ export default function LessonPage() {
                         ← Back
                     </button>
 
-                    <h1 className="text-sm font-semibold text-gray-700 truncate text-center flex-1">
+                    <h1 className="text-sm font-semibold text-gray-700 text-center flex-1">
                         {lesson?.title}
                     </h1>
 
@@ -196,7 +196,7 @@ export default function LessonPage() {
             </div>
 
             {/* Sidebar */}
-            <div className="hidden lg:flex w-72 xl:w-80 border-l border-gray-100">
+            <div className="hidden lg:flex w-72 xl:w-80 h-screen min-h-0 border-l border-gray-100">
                 {sidebar}
             </div>
 

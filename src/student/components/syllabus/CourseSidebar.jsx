@@ -14,7 +14,7 @@ export default function CourseSidebar({ sections, currentLessonId, completedIds,
     };
 
     return (
-        <aside className="flex flex-col h-full bg-white">
+        <aside className="flex flex-col h-full min-h-0 min-w-0 bg-white">
 
             <div className="px-5 py-5 border-b border-gray-100 flex-shrink-0">
                 <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">Course</p>
@@ -33,7 +33,7 @@ export default function CourseSidebar({ sections, currentLessonId, completedIds,
                 </div>
             </div>
 
-            <nav className="flex-1 overflow-y-auto py-3 px-2">
+            <nav className="flex-1 min-h-0 overflow-y-auto py-3 px-2">
                 {sections.map((section, si) => (
                     <SyllabusSection
                         key={section.id}
