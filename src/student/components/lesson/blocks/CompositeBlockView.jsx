@@ -1,37 +1,22 @@
-// CompositeBlockView.jsx
-import { useEffect, useState } from "react";
 import TextBlockView from "./TextBlockView.jsx";
 import VideoBlockView from "./VideoBlockView.jsx";
 import ImageBlockView from "./ImageBlockView.jsx";
 import QuizBlockView from "./QuizBlockView.jsx";
-import {BLOCK_TYPE} from "../../../../components/lessoneditor/index.js";
+import { BLOCK_TYPE, parseDataJson } from "../../../../components/lessoneditor/index.js";
 
 function renderChild(child) {
-    const data = JSON.parse(child.dataJson ?? "{}");
+    const data = parseDataJson(child.dataJson);
     switch (child.blockTypeId) {
         case BLOCK_TYPE.TEXT:  return <TextBlockView data={data} />;
         case BLOCK_TYPE.VIDEO: return <VideoBlockView data={data} />;
         case BLOCK_TYPE.IMAGE: return <ImageBlockView data={data} />;
         case BLOCK_TYPE.QUIZ:  return <QuizBlockView data={data} />;
-        case BLOCK_TYPE.GROUP: return <CompositeBlockView data={data} />;
         default:                return null;
     }
 }
 
-export default function CompositeBlockView({ data }) {
-    const [children, setChildren] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const ids = data?.childContentObjectIds ?? [];
-        if (!ids.length) { setLoading(false); return; }
-
-        Promise.all(ids.map(id =>
-            fetch(`/api/content-objects/${id}`).then(r => r.json())
-        )).then(setChildren).finally(() => setLoading(false));
-    }, [data]);
-
-    if (loading) return <div className="text-xs text-gray-300">Loading…</div>;
+export default function CompositeBlockView({ block }) {
+    const children = block.children ?? [];
     if (!children.length) return null;
 
     return (
