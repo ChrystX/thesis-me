@@ -14,6 +14,10 @@ export const lessonBlockService = {
         return api.post(`/lessons/${lessonId}/blocks/group`, dto);
     },
 
+    ungroupBlock(lessonId, blockId) {
+        return api.post(`/lessons/${lessonId}/blocks/${blockId}/ungroup`);
+    },
+
     updateBlock(lessonId, blockId, dto) {
         return api.put(`/lessons/${lessonId}/blocks/${blockId}`, dto);
     },

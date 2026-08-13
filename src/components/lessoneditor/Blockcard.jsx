@@ -32,7 +32,7 @@ const MEDIA_SOURCES = [
     { id: "gdrive", label: "Google Drive" },
 ];
 
-export default function BlockCard({ block, totalBlocks, onUpdate, onDelete, onMoveUp, onMoveDown, isDragging = false, selected = false, onToggleSelect }) {
+export default function BlockCard({ block, totalBlocks, onUpdate, onDelete, onMoveUp, onMoveDown, onUngroup, onUpdateChild, isDragging = false, selected = false, onToggleSelect }) {
 
     const meta = BLOCK_TYPE_META[block.blockTypeId];
     const BlockComponent = BLOCK_COMPONENTS[block.blockTypeId];
@@ -80,6 +80,8 @@ export default function BlockCard({ block, totalBlocks, onUpdate, onDelete, onMo
                 onDelete={onDelete}
                 onMoveUp={onMoveUp}
                 onMoveDown={onMoveDown}
+                onUngroup={onUngroup}
+                onUpdateChild={onUpdateChild}
                 isDragging={isDragging}
             />
         );

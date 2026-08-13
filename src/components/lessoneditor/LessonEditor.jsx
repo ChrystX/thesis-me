@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useLessonBlocks } from "../../hooks/lesson/useLessonBlocks.js";
+import { contentObjectService } from "../../api/contentObjectService.js";
 import { BLOCK_TYPE_META, serializeDataJson } from "./BlockTypes.js";
 import BlockList from "./Blocklist.jsx";
 import AddBlockBar from "./addBlockBar.jsx";
 
 export default function LessonEditor({ lessonId, lessonTitle = "Untitled Lesson" }) {
-    const { blocks, createBlock, updateBlock, deleteBlock, groupBlocks } = useLessonBlocks(lessonId);
+    const { blocks, createBlock, updateBlock, deleteBlock, groupBlocks, ungroupBlock, refetch } = useLessonBlocks(lessonId);
     const [selectedIds, setSelectedIds] = useState([]);
     const [adding, setAdding] = useState(false);
     const [showJson, setShowJson] = useState(false);
@@ -70,6 +71,17 @@ export default function LessonEditor({ lessonId, lessonTitle = "Untitled Lesson"
         setSelectedIds([]);
     }
 
+    async function handleUngroup(blockId) {
+        if (!window.confirm("Ungroup this block? It will be split back into its individual blocks.")) return;
+        await ungroupBlock(blockId);
+    }
+
+    // Edit a single child's content in place, without ungrouping the composite.
+    async function handleUpdateChild(contentObjectId, dataJson) {
+        await contentObjectService.update(contentObjectId, { dataJson });
+        await refetch();
+    }
+
     return (
         <div className="flex h-full flex-col overflow-hidden bg-gray-50">
             <header className="flex items-center justify-between border-b border-gray-200 bg-white px-6 py-3 shadow-sm">
@@ -111,6 +123,8 @@ export default function LessonEditor({ lessonId, lessonTitle = "Untitled Lesson"
                         onUpdate={handleUpdate}
                         onDelete={handleDelete}
                         onReorder={handleReorder}
+                        onUngroup={handleUngroup}
+                        onUpdateChild={handleUpdateChild}
                         selectedIds={selectedIds}
                         onToggleSelect={toggleSelect}
                     />

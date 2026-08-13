@@ -40,12 +40,18 @@ export function useLessonBlocks(lessonId) {
         fetchBlocks();
     };
 
+    const ungroupBlock = async (blockId) => {
+        await lessonBlockService.ungroupBlock(lessonId, blockId);
+        fetchBlocks();
+    };
+
     return {
         blocks,
         createBlock,
         updateBlock,
         deleteBlock,
         groupBlocks,
+        ungroupBlock,
         refetch: fetchBlocks
     };
 }

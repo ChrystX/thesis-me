@@ -23,6 +23,11 @@ export const contentObjectService = {
         return api.patch(`/content-objects/${id}/draft`, dto);
     },
 
+    // direct, non-versioned update — used for editing a composite group's children in place
+    update(id, dto) {
+        return api.patch(`/content-objects/${id}`, dto);
+    },
+
     publish(id) {
         return api.post(`/content-objects/${id}/publish`);
     },

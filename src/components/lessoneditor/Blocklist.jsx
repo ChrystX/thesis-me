@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import BlockCard from "./Blockcard.jsx";
 
-export default function BlockList({ blocks, onUpdate, onDelete, onReorder, selectedIds = [], onToggleSelect }) {
+export default function BlockList({ blocks, onUpdate, onDelete, onReorder, onUngroup, onUpdateChild, selectedIds = [], onToggleSelect }) {
     const [draggingId, setDraggingId] = useState(null);
     const [overIndex, setOverIndex] = useState(null);
     const dragSrcIndex = useRef(null);
@@ -94,6 +94,8 @@ export default function BlockList({ blocks, onUpdate, onDelete, onReorder, selec
                         onDelete={onDelete}
                         onMoveUp={handleMoveUp}
                         onMoveDown={handleMoveDown}
+                        onUngroup={onUngroup}
+                        onUpdateChild={onUpdateChild}
                         isDragging={draggingId === block.id}
                         selected={selectedIds.includes(block.id)}
                         onToggleSelect={onToggleSelect}
