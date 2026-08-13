@@ -1,7 +1,7 @@
 import SyllabusSection from "./SyllabusSection.jsx";
 import {calculateCourseProgress} from "../../utils/ProgresssUtils.js";
 
-export default function CourseSidebar({ sections, currentLessonId, completedIds, onSelectLesson, courseTitle }) {
+export default function CourseSidebar({ sections, currentLessonId, completedIds, onSelectLesson, courseTitle, canProceedToNext }) {
     const { completed, total, pct } = calculateCourseProgress(sections, completedIds);
     const activeSection = sections.find(s => s.lessons.some(l => l.id === currentLessonId));
 
@@ -10,7 +10,14 @@ export default function CourseSidebar({ sections, currentLessonId, completedIds,
     const isLessonLocked = (lessonId) => {
         const idx = allLessons.findIndex(l => l.id === lessonId);
         if (idx <= 0) return false;
-        return !completedIds.includes(allLessons[idx - 1].id);
+
+        const prevLesson = allLessons[idx - 1];
+        const prevCompleted = completedIds.includes(prevLesson.id);
+
+        // lock the lesson right after "current" until you've scrolled through current
+        if (prevLesson.id === currentLessonId && !canProceedToNext) return true;
+
+        return !prevCompleted;
     };
 
     return (

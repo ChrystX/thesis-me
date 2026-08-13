@@ -60,6 +60,7 @@ export default function LessonPage() {
     const handleToggleComplete = useLessonCompletion({
         lessonId: parsedLessonId,
         isCompleted,
+        hasScrolled: hasScrolledToBottom,
         markComplete,
         unmarkComplete,
         nextLesson,
@@ -129,6 +130,7 @@ export default function LessonPage() {
             completedIds={completedLessonIds}
             onSelectLesson={goToLesson}
             courseTitle={courseTitle}
+            canProceedToNext={canProceedToNext}
         />
     );
 

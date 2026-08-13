@@ -30,9 +30,10 @@ export default function LessonNavBar({ prevLesson, nextLesson, canProceedToNext,
                 {/* Mark complete */}
                 <button
                     onClick={onToggleComplete}
+                    disabled={!isCompleted && !hasScrolledToBottom}
                     className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition border-2 ${
-                        isCompleted
-                            ? "bg-pink-50 border-pink-200 text-pink-600 hover:bg-pink-100"
+                        !isCompleted && !hasScrolledToBottom
+                            ? "opacity-40 cursor-not-allowed"
                             : "bg-pink-600 border-pink-600 text-white hover:bg-pink-700"
                     }`}
                 >

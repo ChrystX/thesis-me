@@ -18,6 +18,7 @@ export function useScrollCompletion(ref, deps = []) {
             }
         };
 
+        handleScroll();
         el.addEventListener("scroll", handleScroll);
         return () => el.removeEventListener("scroll", handleScroll);
     }, [ref, ...deps]);
