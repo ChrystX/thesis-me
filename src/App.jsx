@@ -67,7 +67,11 @@ function App() {
                     {/*</Route>*/}
 
                     {/* Admin */}
-                    <Route path="/admin/*" element={<AdminLayout />}>
+                    <Route path="/admin/*" element={
+                        <ProtectedAdminRoute>
+                            <AdminLayout />
+                        </ProtectedAdminRoute>
+                    }>
                         <Route path="users" element={<UsersPage />} />
                         <Route path="courses" element={<CoursesPage />} />
                         <Route path="courses/:courseId/offering" element={<CourseOfferingPage />} />

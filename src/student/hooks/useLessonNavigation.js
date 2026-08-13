@@ -9,7 +9,7 @@ export function useLessonNavigation({
     const nextLesson = getNextLesson(lessonId);
 
     const nextLessonLocked = !!nextLesson && !isCompleted;
-    const canProceedToNext = hasScrolled && !nextLessonLocked;
+    const canProceedToNext = !!nextLesson && hasScrolled;
 
     return {
         prevLesson,

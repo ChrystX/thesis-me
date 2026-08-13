@@ -1,7 +1,6 @@
 export function useLessonCompletion({
                                         lessonId,
                                         isCompleted,
-                                        hasScrolled,
                                         markComplete,
                                         unmarkComplete,
                                         nextLesson,
@@ -11,7 +10,6 @@ export function useLessonCompletion({
         if (isCompleted) {
             await unmarkComplete(lessonId);
         } else {
-            if(!hasScrolled) return;
             await markComplete(lessonId);
             if (nextLesson) {
                 setTimeout(() => {
