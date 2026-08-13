@@ -11,7 +11,6 @@ export function useLessonCompletion({
         if (isCompleted) {
             await unmarkComplete(lessonId);
         } else {
-            await markComplete(lessonId);
             if(!hasScrolled) return;
             await markComplete(lessonId);
             if (nextLesson) {

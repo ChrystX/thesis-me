@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useLessonBlocks } from "../../hooks/lesson/useLessonBlocks.js";
-import { BLOCK_TYPE_META, serializeDataJson } from "./blockTypes.js";
-import BlockList from "./BlockList.jsx";
-import AddBlockBar from "./AddBlockBar.jsx";
+import { BLOCK_TYPE_META, serializeDataJson } from "./BlockTypes.js";
+import BlockList from "./Blocklist.jsx";
+import AddBlockBar from "./addBlockBar.jsx";
 
 export default function LessonEditor({ lessonId, lessonTitle = "Untitled Lesson" }) {
     const { blocks, createBlock, updateBlock, deleteBlock, groupBlocks } = useLessonBlocks(lessonId);

@@ -5,7 +5,7 @@ import { toEventDto, toLocalInput } from "../utils/eventMapper.js";
 import {useEvents} from "../../../../context/EventsContext.jsx";
 
 export function useEventForm(event, onSuccess) {
-    const isEditing = !!event;
+    const isEditing = !!event?.id;
     const { createEvent, updateEvent } = useEvents();
 
     const [title, setTitle] = useState(event?.title ?? "");

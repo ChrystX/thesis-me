@@ -3,8 +3,10 @@ import {tokenStorage} from "../utils/tokenStorage.js";
 import {userStorage} from "../utils/userStorage.js";
 import { refreshStorage } from "../utils/refreshStorage.js";
 
+
+const API_BASE_URL = import.meta.env.VITE_MAIN_API_URL || "http://localhost:5067/api";
 const api = axios.create({
-    baseURL: "http://localhost:5067/api",
+    baseURL: API_BASE_URL,
 });
 
 const SKIP_REFRESH_ROUTES = [

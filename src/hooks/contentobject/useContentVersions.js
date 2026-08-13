@@ -21,7 +21,7 @@ export function useContentVersions() {
 
     const createVersion = useCallback(async (id, dataJson) => {
         try {
-            const res = await contentObjectService.update(id, { dataJson });
+            const res = await contentObjectService.saveDraft(id, { dataJson });
             return res.data;
         } catch (err) {
             setError(err.message);

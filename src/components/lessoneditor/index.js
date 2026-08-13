@@ -1,2 +1,2 @@
 export { default } from "./LessonEditor.jsx";
-export * from "./blockTypes.js";
+export * from "./BlockTypes.js";
